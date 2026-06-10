@@ -19,7 +19,9 @@ export default async function DashboardPage({ params }: { params: { lng: string 
           </div>
           <nav className="space-y-2">
             <Button variant="ghost" className="w-full justify-start text-slate-400 hover:text-white">📁 Dashboard</Button>
-            <Button variant="ghost" className="w-full justify-start text-slate-400 hover:text-white">💻 R&D (VS Code)</Button>
+            <a href={`vscode`} target="_blank" className="w-full">
+              <Button variant="ghost" className="w-full justify-start text-slate-400 hover:text-white">💻 R&D (VS Code)</Button>
+            </a>
             <a href="/MSOutlookit/index.html" className="w-full" target="_blank" rel="noopener noreferrer">
               <Button variant="secondary" className="w-full justify-start text-white bg-slate-800">📈 Admin (Outlook)</Button>
             </a>

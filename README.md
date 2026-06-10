@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤫 WorkingNow.live — The Ultimate Office Camouflage OS
 
-## Getting Started
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fworkingnow-live)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Twitter Follow](https://img.shields.io/twitter/follow/WorkingNowLive?style=social)](https://twitter.com/WorkingNowLive)
 
-First, run the development server:
+> **"What's working now? You are, apparently."**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**WorkingNow.live** is a next-generation, open-source interface camouflage framework built for modern tech talents, remote workers, and professional slackers. It transforms raw entertainment data streams into high-fidelity, high-priority corporate documentation (Notion, VS Code, Excel, Outlook) in real-time. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Keep your mind entertained while keeping your corporate privacy completely safe under the micromanagement radar.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📺 Preview / Gallery
 
-## Learn More
+| 👨‍💻 Tech Department (VS Code) | 📊 Operations (Notion Canvas) | 📈 Administration (MS Outlook / Excel) |
+| :---: | :---: | :---: |
+| <img src="public/screenshots/vscode-skin.png" width="250" alt="VS Code Skin"/> | <img src="public/screenshots/notion-skin.png" width="250" alt="Notion Skin"/> | <img src="public/screenshots/outlook-skin.png" width="250" alt="Outlook Skin"/> |
+| *Disguise sci-fi novels as clean python source code.* | *Read Reddit drama formatted as Q2 Marketing PRDs.* | *Classic MSOutlookit clone natively integrated.* |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ✨ Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **🎭 Interface Camouflage (Skins)**: Toggle dynamically between high-fidelity skins (Notion, VS Code, Jira, MS Outlook) depending on your professional role.
+- **📡 Automated Data Injector**: Built-in Python scripts (powered by GitHub Actions) that pull data from Reddit, Hacker News, and light novels, rendering them natively in monospace code fonts or spreadsheet cells.
+- **🚨 The Panic Switch (Boss Key)**: Press `Space` (or customize your hotkey). The entire DOM elements smoothly fade out within 50ms, replacing itself with a high-density, terrifyingly realistic KPI Dashboard.
+- **🔌 Hardware Ready (Upcoming)**: Fully compatible with upcoming macro-pad hardwares (The Physical Panic Button). No drivers required, completely bypasses corporate endpoint monitoring.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Tech Stack & Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is engineered to run on **Zero Server Infrastructure Cost**:
+
+- **Frontend**: Next.js 14+, TypeScript, Tailwind CSS, Radix UI (Shadcn/ui).
+- **Deployment**: Vercel (Edge Network).
+- **Database/CMS**: Airtable API.
+- **Automation Pipeline**: Python + GitHub Actions (Scheduled crons for content extraction).
+
+```text
+[Web Scraping Script] -> [GitHub Actions] -> [Airtable DB] -> [Next.js (Vercel)] -> Camouflaged UI

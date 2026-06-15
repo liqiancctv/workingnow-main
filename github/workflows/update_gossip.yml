@@ -1,0 +1,26 @@
+name: Hourly Gossip Auto-Update
+on:
+  schedule:
+    - cron: '0 * * * *' # ⏳ 没看错！每小时自动触发一次
+  workflow_dispatch: # 允许你手动在 GitHub 网页上点按钮触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: pip install requests beautifulsoup4 lxml
+    - name: Run Crawler
+      run: python fetch_gossip.py # 🐍 运行你的爬虫
+    - name: Commit and Push if changed
+      run: |
+        git config --global user.name "liqiancctv"
+        git config --global user.email "g6kmyt7rz5@privaterelay.appleid.com"
+        git add public/gossip.json
+        git diff-index --quiet HEAD || git commit -m "chore: auto-updated gossip streaming data"
+        git push

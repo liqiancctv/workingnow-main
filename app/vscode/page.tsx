@@ -1,8 +1,25 @@
 "use client"
+import React, { useState, useEffect } from "react" // ➡️ 引入 useEffect
 
-import React from "react"
 
 export default function VSCodeSkin() {
+  // ➡️ 1. 初始化一个空数组
+  const [breakingNews, setNews] = useState<string[]>([])
+
+  // ➡️ 2. 页面加载时，自动异步读取 public/gossip.json
+  useEffect(() => {
+    fetch("/gossip.json")
+      .then((res) => res.json())
+      .then((data) => setNews(data))
+      .catch((err) => {
+        // 如果文件还没生成，提供安全的兜底默认数据
+        setNews([
+          "🔥 [SYSTEM] Connecting to secure data stream...",
+          "🔥 [SYSTEM] Idle. Awaiting daily intelligence update."
+        ])
+      })
+  }, [])
+
   return (
     <div className="flex h-screen w-screen flex-col bg-[#1e1e1e] font-sans text-[#cccccc] select-none text-sm overflow-hidden">
       
@@ -81,89 +98,34 @@ export default function VSCodeSkin() {
         </div>
 
         {/* 2C. 右侧核心代码编辑区 (Editor Area) */}
-        <div className="flex-1 flex flex-col bg-[#1e1e1e]">
-          
-          {/* 编辑器 Tab 标签页 */}
-          <div className="flex h-9 w-full bg-[#2d2d2d] text-xs border-b border-[#1e1e1e]">
-            <div className="flex items-center space-x-2 bg-[#1e1e1e] px-4 border-t border-blue-500 text-white border-r border-[#252526]">
-              <span>⚛️</span> <span>Index.tsx</span> <span className="text-gray-500 hover:text-white ml-2 cursor-pointer">✕</span>
-            </div>
-            <div className="flex items-center space-x-2 px-4 text-[#969696] hover:bg-[#2b2b2b] hover:text-white border-r border-[#252526] cursor-pointer">
-              <span>⚙️</span> <span>package.json</span>
-            </div>
-          </div>
-
-          {/* 1:1 代码高亮展示区 (你今天可以把真实的摸鱼段子藏在这里！) */}
-          <div className="flex-1 overflow-y-auto p-4 font-mono text-xs leading-relaxed selection:bg-blue-800/30">
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">1</span>
-              <p><span className="text-[#c586c0]">import</span> React, &#123; useState, useEffect &#125; <span className="text-[#c586c0]">from</span> <span className="text-[#ce9178]">'react'</span>;</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">2</span>
-              <p><span className="text-[#c586c0]">import</span> &#123; runServerMonitor &#125; <span className="text-[#c586c0]">from</span> <span className="text-[#ce9178]'">'@/lib/analytics'</span>;</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">3</span>
-              <p>&nbsp;</p>
-            </div>
-            <div className="flex text-green-600 italic">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">4</span>
-              <p>{"// TODO: 【打工人高能广播】今天全网最火爆的新闻吃瓜内容已注入"}</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">5</span>
-              <p><span className="text-[#569cd6]">const</span> <span className="text-[#dcdcaa]">TrendingReport</span> = () =&gt; &#123;</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">6</span>
-              <p>&nbsp;&nbsp;<span className="text-[#569cd6]">const</span> [breakingNews, setNews] = <span className="text-[#dcdcaa]">useState</span>([</p>
-            </div>
-
-            {/* 🔴 高能预留：这里就是你未来用 Python 脚本自动填充实时爆料段子的地方！ */}
-            <div className="flex bg-yellow-500/10 border-l-2 border-yellow-500">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">7</span>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#ce9178]">"🔥 华尔街今天上午突发：某量化基金因为代码少写个逗号亏损上亿..."</span>,</p>
-            </div>
-            <div className="flex bg-yellow-500/10 border-l-2 border-yellow-500">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">8</span>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#ce9178]">"🚀 硅谷突发：科技巨头今日宣布全面裁撤所有非技术管理岗位..."</span></p>
-            </div>
-            
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">9</span>
-              <p>&nbsp;&nbsp;]);</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">10</span>
-              <p>&nbsp;&nbsp;<span className="text-[#c586c0]">return</span> (</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">11</span>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-[#569cd6]">div</span> className=<span className="text-[#ce9178]">"terminal-log"</span>&gt;</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">12</span>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#123; breakingNews.map(item =&gt; &lt;<span className="text-[#4ec9b0]">CoreData</span>&gt;&#123;item&#125;&lt;/<span className="text-[#4ec9b0]">CoreData</span>&gt;) &#125;</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">13</span>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span className="text-[#569cd6]">div</span>&gt;</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">14</span>
-              <p>&nbsp;&nbsp;);</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">15</span>
-              <p>&#125;</p>
-            </div>
-            <div className="flex">
-              <span className="w-8 text-right pr-4 text-[#858585] select-none">16</span>
-              <p><span className="text-[#c586c0]">export default</span> <span className="text-[#dcdcaa]">TrendingReport</span>;</p>
-            </div>
+        {/* 右侧核心代码编辑区 */}
+      <div className="flex-1 flex flex-col bg-[#1e1e1e]">
+        {/* 编辑器 Tab */}
+        <div className="flex h-9 w-full bg-[#2d2d2d] text-xs border-b border-[#1e1e1e]">
+          <div className="flex items-center space-x-2 bg-[#1e1e1e] px-4 border-t border-blue-500 text-white">
+            <span>⚛️</span> <span>Index.tsx</span>
           </div>
         </div>
+
+        {/* 代码展示区 */}
+        <div className="flex-1 overflow-y-auto p-4 font-mono text-xs leading-relaxed">
+          {/* 前面几行假代码固定不变 */}
+          <div className="flex"><span className="w-8 text-right pr-4 text-[#858585]">1</span><p><span className="text-[#c586c0]">import</span> React <span className="text-[#c586c0]">from</span> <span className="text-[#ce9178]">'react'</span>;</p></div>
+          <div className="flex"><span className="w-8 text-right pr-4 text-[#858585]">2</span><p><span className="text-[#569cd6]">const</span> <span className="text-[#dcdcaa]">GlobalMonitor</span> = () =&gt; &#123;</p></div>
+          
+          {/* ➡️ 3. 动态循环渲染从 Python 爬过来的实时大瓜！ */}
+          {breakingNews.map((newsLine, index) => (
+            <div className="flex bg-yellow-500/5 border-l-2 border-yellow-500/40 hover:bg-yellow-500/10" key={index}>
+              <span className="w-8 text-right pr-4 text-[#858585] select-none">{index + 3}</span>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#ce9178]">"{newsLine}"</span>,</p>
+            </div>
+          ))}
+
+          {/* 结尾收尾代码 */}
+          <div className="flex"><span className="w-8 text-right pr-4 text-[#858585]">{breakingNews.length + 3}</span><p>&nbsp;&nbsp;<span className="text-[#c586c0]">return</span> &lt;<span className="text-[#569cd6]">div</span>&gt;Data Stream Synced&lt;/<span className="text-[#569cd6]">div</span>&gt;</p></div>
+          <div className="flex"><span className="w-8 text-right pr-4 text-[#858585]">{breakingNews.length + 4}</span><p>&#125;; <span className="text-[#c586c0]">export default</span> <span className="text-[#dcdcaa]">GlobalMonitor</span>;</p></div>
+        </div>
+      </div>
       </div>
 
       {/* 3. 底部状态栏 (Status Bar) */}

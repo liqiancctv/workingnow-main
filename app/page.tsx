@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Metadata } from "next"
+
 // 简单的动态读取字典函数（实际开发可以用 fs 或 import）
 async function getTranslation(lng: string) {
   try {
@@ -8,6 +10,45 @@ async function getTranslation(lng: string) {
     return await import(`./i18n/locales/en.json`).then((m) => m.default)
   }
 }
+
+type Props = {
+  params: Promise<{ lng: string }>
+}
+
+// 🌐 这一段代码是给 Google 爬虫量身定制的“路标”
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { lng } = await params
+  
+  // 根据不同语言动态定制搜索结果里显示的标题和简介
+  const titles: Record<string, string> = {
+    en: "WorkingNow - Ultimate Enterprise Cloud & Developer Dashboard",
+    zh: "WorkingNow - 现代化企业云端数据监视中台与打工人导航",
+    ja: "WorkingNow - 開発者向けエンタープライズクラウドダッシュボード"
+  }
+  
+  const descriptions: Record<string, string> = {
+    en: "Monitor active server nodes, cloud workloads, and optimize engineering workflows in real-time.",
+    zh: "实时监控服务器节点、云端负载，提供企业级数据面板及全栈独立开发者工具导航。",
+    ja: "アクティブなサーバーノード、クラウドワークロードをリアルタイムで監視します。"
+  }
+
+  return {
+    title: titles[lng] || titles.en,
+    description: descriptions[lng] || descriptions.en,
+    
+    // 🧠 核心：告诉 Google 不同的语言版本去哪里抓取（防重复内容惩罚）
+    alternates: {
+      canonical: `https://workingnow.live/${lng}`,
+      languages: {
+        'en': 'https://workingnow.live/en',
+        'zh': 'https://workingnow.live/zh',
+        'ja': 'https://workingnow.live/ja',
+        'x-default': 'https://workingnow.live/en', // 默认缺省语言
+      },
+    },
+  }
+}
+
 export default async function DashboardPage({ params }: { params: { lng: string } }) {
   const t = await getTranslation(params.lng)
   return (

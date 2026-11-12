@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react'
 import { getTranslations, type Locale } from '@/lib/translations'
 import { StealthNav } from '@/components/stealth-nav'
+import { useDemoStream } from '@/components/demo-mode'
 
 export function VSCodeSkin({ lng }: { lng: Locale }) {
   const t = getTranslations(lng)
   const [tasks, setTasks] = useState<string[]>([])
+  const demoStream = useDemoStream(t.demo_code_samples, 3200)
 
   useEffect(() => {
     let active = true
@@ -28,7 +30,7 @@ export function VSCodeSkin({ lng }: { lng: Locale }) {
       <div className="flex h-10 shrink-0 items-center justify-between border-b border-[#292929] bg-[#333333] px-3 text-xs text-[#dddddd]">
         <div className="flex min-w-0 items-center gap-3"><span className="font-bold text-[#58a6ff]">⨝</span><nav className="hidden items-center gap-1 xl:flex">{menuItems.map((item) => <span key={item} className="rounded px-2 py-1 hover:bg-[#505050]">{item}</span>)}</nav></div>
         <div className="mx-3 hidden w-full max-w-sm truncate rounded border border-[#454545] bg-[#2d2d2d] px-3 py-1 text-center text-[11px] text-[#aaaaaa] sm:block">workingnow-main — Index.tsx</div>
-        <div className="shrink-0 text-[11px] text-[#9b9b9b]">{t.vscode_project}</div>
+        <div className="flex shrink-0 items-center gap-2 text-[10px] text-[#9b9b9b]"><span className="rounded border border-sky-800 bg-sky-950/60 px-1.5 py-0.5 text-sky-300">{t.demo_badge}</span><span>{t.vscode_project}</span></div>
       </div>
 
       <div className="flex min-h-0 flex-1 overflow-hidden">
@@ -48,13 +50,14 @@ export function VSCodeSkin({ lng }: { lng: Locale }) {
             <div className="flex min-w-max"><span className="w-12 shrink-0 select-none pr-4 text-right text-[#858585]">2</span><p><span className="text-[#569cd6]">const</span> <span className="text-[#dcdcaa]">GlobalMonitor</span> = () =&gt; {'{'}</p></div>
             <div className="flex min-w-max"><span className="w-12 shrink-0 select-none pr-4 text-right text-[#858585]">3</span><p className="text-[#6a9955]">&nbsp;&nbsp;// {t.vscode_connected}</p></div>
             {tasks.map((task, index) => <div key={`${index}-${task}`} className="flex min-w-max border-l-2 border-amber-500/40 bg-amber-500/[0.04] hover:bg-amber-500/[0.08]"><span className="w-12 shrink-0 select-none pr-4 text-right text-[#858585]">{index + 4}</span><p className="max-w-[calc(100vw-100px)] truncate pr-6 text-[#ce9178]">&nbsp;&nbsp;&nbsp;&nbsp;&quot;{task}&quot;,</p></div>)}
-            <div className="flex min-w-max"><span className="w-12 shrink-0 select-none pr-4 text-right text-[#858585]">{tasks.length + 4}</span><p>&nbsp;&nbsp;<span className="text-[#c586c0]">return</span> &lt;<span className="text-[#569cd6]">div</span>&gt;Data Stream Synced&lt;/<span className="text-[#569cd6]">div</span>&gt;</p></div>
-            <div className="flex min-w-max"><span className="w-12 shrink-0 select-none pr-4 text-right text-[#858585]">{tasks.length + 5}</span><p>{'}'}; <span className="text-[#c586c0]">export default</span> <span className="text-[#dcdcaa]">GlobalMonitor</span>;</p></div>
+            {demoStream.events.map((event, index) => <div key={event.id} className="flex min-w-max border-l-2 border-sky-500/50 bg-sky-500/[0.06]"><span className="w-12 shrink-0 select-none pr-4 text-right text-[#858585]">{tasks.length + index + 4}</span><p className="text-[#9cdcfe]">&nbsp;&nbsp;{event.item}</p></div>)}
+            <div className="flex min-w-max"><span className="w-12 shrink-0 select-none pr-4 text-right text-[#858585]">{tasks.length + demoStream.events.length + 4}</span><p>&nbsp;&nbsp;<span className="text-[#c586c0]">return</span> &lt;<span className="text-[#569cd6]">div</span>&gt;Data Stream Synced&lt;/<span className="text-[#569cd6]">div</span>&gt;</p></div>
+            <div className="flex min-w-max"><span className="w-12 shrink-0 select-none pr-4 text-right text-[#858585]">{tasks.length + demoStream.events.length + 5}</span><p>{'}'}; <span className="text-[#c586c0]">export default</span> <span className="text-[#dcdcaa]">GlobalMonitor</span>;</p></div>
           </div>
         </section>
       </div>
 
-      <footer className="flex h-6 shrink-0 items-center justify-between bg-[#007acc] px-2 text-[10px] text-white sm:text-xs"><div className="flex items-center gap-3"><span className="font-semibold">⇄ main*</span><span>⊗ 0　⚠ 0</span></div><div className="flex items-center gap-3"><span>Ln 7, Col 42</span><span className="hidden sm:inline">Spaces: 2</span><span className="hidden sm:inline">UTF-8</span><span>TypeScript JSX</span></div></footer>
+      <footer className="flex h-6 shrink-0 items-center justify-between bg-[#007acc] px-2 text-[10px] text-white sm:text-xs"><div className="flex items-center gap-3"><span className="font-semibold">⇄ main*</span><span>⊗ 0　⚠ 0</span></div><div className="flex items-center gap-3"><span className="hidden text-emerald-100 sm:inline">{demoStream.enabled ? `DEMO BUILD #${demoStream.tick}` : ''}</span><span>Ln 7, Col 42</span><span className="hidden sm:inline">Spaces: 2</span><span className="hidden sm:inline">UTF-8</span><span>TypeScript JSX</span></div></footer>
     </main>
   )
 }

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Bot, Code2, FileSpreadsheet, House, Mail, Sparkles } from 'lucide-react'
 import { getTranslations, type Locale } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
+import { DemoModeToggle } from '@/components/demo-mode-toggle'
 
 type ModuleId = 'home' | 'ai' | 'code' | 'excel' | 'outlook'
 
@@ -35,7 +36,10 @@ export function StealthNav({ lng, active }: { lng: Locale; active: ModuleId }) {
           </Link>
         ))}
       </nav>
-      <LanguageSwitcher lng={lng} />
+      <div className="flex shrink-0 items-center gap-1.5">
+        <DemoModeToggle lng={lng} />
+        <LanguageSwitcher lng={lng} />
+      </div>
     </header>
   )
 }

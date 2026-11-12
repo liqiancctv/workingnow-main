@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://workingnow.live'
-  const locales = ['en', 'zh', 'ja']
+  const locales = ['en', 'zh', 'ja', 'ms', 'vi']
   
   // 为每种语言的主页生成站点地图条目
   const entries = locales.map((lang) => ({

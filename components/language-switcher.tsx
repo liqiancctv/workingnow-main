@@ -7,6 +7,8 @@ const localeOptions: { value: Locale; label: string }[] = [
   { value: 'en', label: 'English' },
   { value: 'zh', label: '简体中文' },
   { value: 'ja', label: '日本語' },
+  { value: 'ms', label: 'Bahasa Melayu' },
+  { value: 'vi', label: 'Tiếng Việt' },
 ]
 
 export function LanguageSwitcher({ lng }: { lng: Locale }) {

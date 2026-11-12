@@ -7,6 +7,29 @@
   "nav_outlook": "邮件",
   "nav_title": "切换工作区",
   "language_select": "选择语言",
+  "demo_start": "开始演示播放",
+  "demo_pause": "暂停演示播放",
+  "demo_active": "播放中",
+  "demo_idle": "已暂停",
+  "demo_badge": "模拟数据",
+  "demo_conversation": "架构讨论预览",
+  "demo_ai_samples": [
+    "架构笔记：将读密集流量隔离到带版本的缓存键后面；优先依据领域事件失效，而不是只依赖时间过期。",
+    "评审记录：明确重试预算，增加有上限的指数退避，并在写入边界保持幂等性。",
+    "设计检查点：使用关联 ID 输出结构化追踪，再对比发布前后的 p95 延迟。"
+  ],
+  "demo_code_samples": [
+    "const cacheKey = createVersionedKey(workspaceId, revision)",
+    "await pipeline.run({ strategy: 'rolling', maxUnavailable: 1 })",
+    "const trace = telemetry.span('workspace.refresh', { sample: true })",
+    "if (result.ok) await artifacts.publish(result.manifest)"
+  ],
+  "demo_excel_samples": [
+    "样例情景已重新计算",
+    "预测差异扫描完成",
+    "模拟行情源已刷新",
+    "敏感性分析已更新"
+  ],
   "home_eyebrow": "WORKINGNOW · 工作区",
   "home_title": "选择工作区",
   "home_description": "为手头工作选择一个熟悉的工作环境。",

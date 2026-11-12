@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 
 export default async function OutlookPage({ params }: { params: Promise<{ lng: string }> }) {
   const { lng: rawLng } = await params
-  const lng = (rawLng in { en: true, zh: true, ja: true } ? rawLng : 'en') as Locale
+  const lng = (rawLng in { en: true, zh: true, ja: true, ms: true, vi: true } ? rawLng : 'en') as Locale
   const t = getTranslations(lng)
 
   return (

@@ -7,6 +7,29 @@
   "nav_outlook": "メール",
   "nav_title": "ワークスペースを切り替え",
   "language_select": "言語を選択",
+  "demo_start": "デモ再生を開始",
+  "demo_pause": "デモ再生を一時停止",
+  "demo_active": "再生中",
+  "demo_idle": "一時停止中",
+  "demo_badge": "シミュレーションデータ",
+  "demo_conversation": "アーキテクチャ会話のプレビュー",
+  "demo_ai_samples": [
+    "アーキテクチャメモ: 読み取り中心のトラフィックをバージョン付きキャッシュキーに分離し、時間だけでなくドメインイベントで無効化します。",
+    "レビュー: リトライ予算を明示し、上限付き指数バックオフを追加して、書き込み境界で冪等性を保ちます。",
+    "設計チェックポイント: 相関 ID 付きの構造化トレースを出力し、リリース前後の p95 レイテンシを比較します。"
+  ],
+  "demo_code_samples": [
+    "const cacheKey = createVersionedKey(workspaceId, revision)",
+    "await pipeline.run({ strategy: 'rolling', maxUnavailable: 1 })",
+    "const trace = telemetry.span('workspace.refresh', { sample: true })",
+    "if (result.ok) await artifacts.publish(result.manifest)"
+  ],
+  "demo_excel_samples": [
+    "サンプルシナリオを再計算しました",
+    "予測差異のスキャンが完了しました",
+    "模擬マーケットデータを更新しました",
+    "感度分析を更新しました"
+  ],
   "home_eyebrow": "WORKINGNOW · WORKSPACE",
   "home_title": "ワークスペースを選択",
   "home_description": "今の作業に合った使い慣れたワークスペースを選びます。",

@@ -21,6 +21,8 @@ import {
 } from 'lucide-react'
 import { use, useEffect, useRef, useState, type ReactNode } from 'react'
 import { StealthNav } from '@/components/stealth-nav'
+import { useDemoStream } from '@/components/demo-mode'
+import { getTranslations, type Locale } from '@/lib/translations'
 
 type Message = {
   id: string
@@ -81,33 +83,58 @@ const copy = {
     degraded: '縮退運転', pipeline: 'デプロイパイプライン', running: 'ロールバック中', log: 'ライブイベントストリーム',
     logs: ['09:42:18.204  WARN  ingress/controller  upstream latency above SLO', '09:42:18.517  ERROR scheduler  pod/api-7f9c pending: insufficient memory', '09:42:19.008  INFO  deployment/api  rollback requested by health check', '09:42:19.224  INFO  replica-set  scaling stable revision to 6 pods', '09:42:20.014  WARN  cache/edge  stale shard invalidation in progress', '09:42:20.606  INFO  readiness probe  5/6 replicas healthy', '09:42:21.332  INFO  control-plane  reconciliation loop active'],
   },
+  ms: {
+    newChat: 'Sembang baharu', search: 'Cari', workspace: 'Ruang kerja', today: 'Hari ini', emptyHistory: 'Perbualan anda akan dipaparkan di sini.', openMenu: 'Buka bar sisi', closeMenu: 'Tutup bar sisi', sendMessage: 'Hantar mesej',
+    settings: 'Tetapan', help: 'Pusat bantuan', profile: 'Ruang kerja peribadi', model: 'WorkingNow AI', modelHint: 'Standard',
+    welcome: 'Apa yang boleh saya bantu?', welcomeHint: 'Tanya soalan atau terangkan perkara yang sedang anda kerjakan.',
+    placeholder: 'Mesej kepada WorkingNow AI', disclaimer: 'WorkingNow AI mungkin membuat kesilapan. Semak maklumat penting.',
+    suggestions: ['Terangkan React Server Components', 'Semak strategi cache', 'Rangka pelan migrasi'],
+    shield: 'Perlindungan kecemasan', settingsTitle: 'Keutamaan', appearance: 'Penampilan', light: 'Cerah', language: 'Bahasa',
+    generating: 'Sedang menyusun butiran', copy: 'Salin', copied: 'Disalin', assistant: 'WorkingNow AI',
+    reportLabel: 'ISYARAT SENI BINA', reportTitle: 'Ringkasan maklumat latar', source: 'Sumber kandungan setempat',
+    emptyCommand: 'Tiada cerita setempat ditemui. Tambahkan item pada public/gossip.json dan cuba lagi.',
+    novelBody: 'Satu anomali kecil muncul dalam strim peristiwa pada 09:42. Cache edge memainkan semula shard lapuk sedangkan origin kekal sihat. Jurutera bertugas mengesan punca kepada dasar percubaan semula yang diwarisi daripada keluaran sebelumnya.',
+    restore: 'Kembali ke ruang kerja', shieldTitle: 'INSIDEN PRODUKSI', shieldSub: 'Kubernetes control plane · us-east-1', cluster: 'STATUS KLUSTER',
+    degraded: 'TERGANGGU', pipeline: 'SALURAN PAIPAN PENERBITAN', running: 'SEDANG UNDUR BALIK', log: 'STRIM PERISTIWA LANGSUNG',
+    logs: ['09:42:18.204  WARN  ingress/controller  latensi huluan melebihi SLO', '09:42:18.517  ERROR scheduler  pod/api-7f9c menunggu: memori tidak mencukupi', '09:42:19.008  INFO  deployment/api  pemeriksaan kesihatan meminta undur balik', '09:42:19.224  INFO  replica-set  skala revisi stabil kepada 6 pod', '09:42:20.014  WARN  cache/edge  pembatalan shard lapuk sedang berjalan', '09:42:20.606  INFO  readiness probe  5/6 replika sihat', '09:42:21.332  INFO  control-plane  gelung penyelarasan aktif'],
+  },
+  vi: {
+    newChat: 'Cuộc trò chuyện mới', search: 'Tìm kiếm', workspace: 'Không gian làm việc', today: 'Hôm nay', emptyHistory: 'Các cuộc trò chuyện sẽ xuất hiện ở đây.', openMenu: 'Mở thanh bên', closeMenu: 'Đóng thanh bên', sendMessage: 'Gửi tin nhắn',
+    settings: 'Cài đặt', help: 'Trung tâm trợ giúp', profile: 'Không gian cá nhân', model: 'WorkingNow AI', modelHint: 'Tiêu chuẩn',
+    welcome: 'Tôi có thể giúp gì cho bạn?', welcomeHint: 'Đặt câu hỏi hoặc mô tả công việc bạn đang thực hiện.',
+    placeholder: 'Nhắn tin cho WorkingNow AI', disclaimer: 'WorkingNow AI có thể mắc lỗi. Hãy kiểm tra thông tin quan trọng.',
+    suggestions: ['Giải thích React Server Components', 'Đánh giá chiến lược bộ nhớ đệm', 'Lập kế hoạch chuyển đổi'],
+    shield: 'Lá chắn khẩn cấp', settingsTitle: 'Tùy chọn', appearance: 'Giao diện', light: 'Sáng', language: 'Ngôn ngữ',
+    generating: 'Đang xử lý chi tiết', copy: 'Sao chép', copied: 'Đã sao chép', assistant: 'WorkingNow AI',
+    reportLabel: 'TÍN HIỆU KIẾN TRÚC', reportTitle: 'Tóm tắt thông tin nền', source: 'Nguồn nội dung cục bộ',
+    emptyCommand: 'Không tìm thấy tin cục bộ. Hãy thêm mục vào public/gossip.json rồi thử lại.',
+    novelBody: 'Một bất thường nhỏ xuất hiện trong luồng sự kiện lúc 09:42. Bộ nhớ đệm biên phát lại một phân đoạn cũ trong khi máy chủ gốc vẫn ổn định. Kỹ sư trực ca lần ra nguyên nhân là chính sách thử lại được kế thừa từ bản phát hành trước.',
+    restore: 'Quay lại không gian làm việc', shieldTitle: 'SỰ CỐ MÔI TRƯỜNG THẬT', shieldSub: 'Kubernetes control plane · us-east-1', cluster: 'TRẠNG THÁI CỤM',
+    degraded: 'SUY GIẢM', pipeline: 'ĐƯỜNG ỐNG TRIỂN KHAI', running: 'ĐANG QUAY LUI', log: 'LUỒNG SỰ KIỆN TRỰC TIẾP',
+    logs: ['09:42:18.204  WARN  ingress/controller  độ trễ thượng nguồn vượt SLO', '09:42:18.517  ERROR scheduler  pod/api-7f9c đang chờ: không đủ bộ nhớ', '09:42:19.008  INFO  deployment/api  kiểm tra sức khỏe yêu cầu quay lui', '09:42:19.224  INFO  replica-set  tăng phiên bản ổn định lên 6 pod', '09:42:20.014  WARN  cache/edge  đang vô hiệu hóa phân đoạn cũ', '09:42:20.606  INFO  readiness probe  5/6 bản sao khỏe mạnh', '09:42:21.332  INFO  control-plane  vòng điều phối đang hoạt động'],
+  },
 } as const
 
 function makeId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
 }
 
-const streamStartTimes = new Map<string, number>()
-
-function StreamedText({ id, text }: { id: string; text: string }) {
-  const [visibleText, setVisibleText] = useState('')
+function StreamedText({ text, paused = false }: { text: string; paused?: boolean }) {
+  const [visibleLength, setVisibleLength] = useState(0)
+  const positionRef = useRef(0)
 
   useEffect(() => {
-    const startTime = streamStartTimes.get(id) ?? Date.now()
-    streamStartTimes.set(id, startTime)
-    let timer = 0
-    const updateText = () => {
-      const position = Math.min(Math.floor((Date.now() - startTime) / 12) * 3, text.length)
-      setVisibleText(text.slice(0, position))
-      if (position === text.length) window.clearInterval(timer)
-    }
-    updateText()
-    timer = window.setInterval(updateText, 12)
+    if (paused || positionRef.current >= text.length) return
+    const timer = window.setInterval(() => {
+      positionRef.current = Math.min(positionRef.current + 3, text.length)
+      setVisibleLength(positionRef.current)
+      if (positionRef.current >= text.length) window.clearInterval(timer)
+    }, 12)
 
     return () => window.clearInterval(timer)
-  }, [id, text])
+  }, [paused, text.length])
 
-  return <><MarkdownResponse text={visibleText} /><span className="ml-0.5 inline-block h-4 w-[2px] animate-pulse bg-neutral-500 align-middle" aria-hidden="true" /></>
+  return <><MarkdownResponse text={text.slice(0, visibleLength)} /><span className="ml-0.5 inline-block h-4 w-[2px] animate-pulse bg-neutral-500 align-middle" aria-hidden="true" /></>
 }
 
 function AssistantMark({ small = false }: { small?: boolean }) {
@@ -169,6 +196,8 @@ export default function AIWorkspacePage({ params }: { params: Promise<{ lng: str
   const routeParams = use(params)
   const lng = routeParams.lng in copy ? routeParams.lng as keyof typeof copy : 'en'
   const t = copy[lng]
+  const demoText = getTranslations(lng as Locale)
+  const demoStream = useDemoStream(demoText.demo_ai_samples, 5600)
   const [threads, setThreads] = useState<Conversation[]>([])
   const [activeId, setActiveId] = useState('')
   const [input, setInput] = useState('')
@@ -197,7 +226,7 @@ export default function AIWorkspacePage({ params }: { params: Promise<{ lng: str
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
-  }, [messages.length, isGenerating])
+  }, [messages.length, demoStream.events.length, isGenerating])
 
   function startNewChat() {
     const id = makeId()
@@ -342,16 +371,18 @@ export default function AIWorkspacePage({ params }: { params: Promise<{ lng: str
           <div className="flex items-center gap-2">
             <button type="button" aria-label={t.openMenu} title={t.openMenu} onClick={() => setSidebarOpen(true)} className="grid size-9 place-items-center rounded-md text-neutral-500 hover:bg-neutral-100 md:hidden"><Menu size={19} /></button>
             <button type="button" onClick={() => setSettingsOpen((open) => !open)} className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm font-medium hover:bg-neutral-100"><span>{t.model}</span><span className="text-neutral-400">{t.modelHint}</span><ChevronDown size={14} className="text-neutral-400" /></button>
+            <span className="rounded border border-sky-200 bg-sky-50 px-1.5 py-1 text-[9px] font-medium text-sky-800">{demoText.demo_badge}</span>
           </div>
           <button type="button" aria-label={t.shield} title={`${t.shield} · Esc`} onDoubleClick={() => setIsShielded(true)} onClick={() => setIsShielded(true)} className="grid size-9 place-items-center rounded-md text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900"><ShieldAlert size={18} /></button>
         </header>
 
         <div className="min-h-0 flex-1 overflow-y-auto">
-          {messages.length === 0 ? (
+          {messages.length === 0 && demoStream.events.length === 0 ? (
             <div className="mx-auto flex min-h-full max-w-3xl flex-col items-center justify-center px-5 pb-24 text-center">
               <AssistantMark />
               <h1 className="mt-5 text-2xl font-semibold tracking-tight text-neutral-800 sm:text-[28px]">{t.welcome}</h1>
               <p className="mt-2 text-sm text-neutral-500">{t.welcomeHint}</p>
+              {demoStream.enabled && <p className="mt-4 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-[10px] font-medium text-sky-800">{demoText.demo_badge} · {demoText.demo_conversation}</p>}
               <div className="mt-8 flex max-w-2xl flex-wrap justify-center gap-2">{t.suggestions.map((suggestion) => <button key={suggestion} type="button" onClick={() => void sendMessage(suggestion)} className="rounded-full border border-neutral-200 bg-white px-4 py-2.5 text-xs text-neutral-600 transition hover:border-neutral-300 hover:bg-neutral-50 sm:text-sm">{suggestion}</button>)}</div>
               <p className="mt-6 text-[11px] text-neutral-400">/news · /gossip · /novel</p>
             </div>
@@ -367,11 +398,15 @@ export default function AIWorkspacePage({ params }: { params: Promise<{ lng: str
                     {message.format === 'report' ? <div className="overflow-hidden rounded-lg border border-neutral-200 bg-[#fafafa]">
                       <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-2.5"><span className="text-[10px] font-semibold tracking-[0.14em] text-neutral-500">{t.reportLabel}</span><span className="text-[10px] text-neutral-400">{t.source}</span></div>
                       <div className="px-4 py-4"><p className="mb-2 text-xs font-medium text-neutral-500">{t.reportTitle}</p><p className="text-sm leading-6 text-neutral-800">{message.content}</p><div className="mt-4 border-t border-dashed border-neutral-200 pt-3 font-mono text-[10px] text-neutral-400">event: content.indexed · status: 200 · source: local-feed</div></div>
-                    </div> : <StreamedText id={message.id} text={message.content} />}
+                    </div> : <StreamedText text={message.content} />}
                     <div className="mt-2 flex items-center gap-1"><button type="button" onClick={() => void copyMessage(message)} aria-label={copiedId === message.id ? t.copied : t.copy} title={copiedId === message.id ? t.copied : t.copy} className="grid size-7 place-items-center rounded-md text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700">{copiedId === message.id ? <Check size={14} /> : <Copy size={14} />}</button></div>
                   </div>
                 </div>
               ))}
+              {demoStream.events.length > 0 && <section aria-label={demoText.demo_conversation} className="mb-8 border-t border-dashed border-sky-200 pt-5">
+                <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-[10px] font-semibold text-sky-800"><span className="size-1.5 animate-pulse rounded-full bg-sky-500" />{demoText.demo_badge} · {demoText.demo_conversation}</p>
+                <div className="space-y-5">{demoStream.events.map((event) => <div key={event.id} className="flex gap-3.5"><AssistantMark small /><div className="min-w-0 flex-1"><p className="mb-1 text-[12px] font-semibold text-neutral-700">{t.assistant} <span className="ml-1 font-normal text-sky-700">· {demoText.demo_badge}</span></p><StreamedText text={event.item} paused={!demoStream.enabled} /></div></div>)}</div>
+              </section>}
               {isGenerating && <div className="mb-8 flex gap-3.5"><AssistantMark small /><div className="pt-1 text-sm text-neutral-400"><span className="mr-2 inline-flex gap-1"><i className="size-1.5 animate-bounce rounded-full bg-neutral-400 [animation-delay:-0.2s]" /><i className="size-1.5 animate-bounce rounded-full bg-neutral-400 [animation-delay:-0.1s]" /><i className="size-1.5 animate-bounce rounded-full bg-neutral-400" /></span>{t.generating}</div></div>}
               <div ref={endRef} />
             </div>

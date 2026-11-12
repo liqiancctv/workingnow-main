@@ -7,6 +7,29 @@
   "nav_outlook": "Email",
   "nav_title": "Switch workspace",
   "language_select": "Select language",
+  "demo_start": "Start demo playback",
+  "demo_pause": "Pause demo playback",
+  "demo_active": "Active",
+  "demo_idle": "Paused",
+  "demo_badge": "SIMULATED DATA",
+  "demo_conversation": "Architecture discussion preview",
+  "demo_ai_samples": [
+    "Architecture note: isolate read-heavy traffic behind a versioned cache key; invalidate by domain event rather than time alone.",
+    "Review pass: make the retry budget explicit, add bounded exponential backoff, and preserve idempotency at the write boundary.",
+    "Design checkpoint: emit structured traces with correlation IDs, then compare p95 latency before and after the rollout."
+  ],
+  "demo_code_samples": [
+    "const cacheKey = createVersionedKey(workspaceId, revision)",
+    "await pipeline.run({ strategy: 'rolling', maxUnavailable: 1 })",
+    "const trace = telemetry.span('workspace.refresh', { sample: true })",
+    "if (result.ok) await artifacts.publish(result.manifest)"
+  ],
+  "demo_excel_samples": [
+    "Sample scenario recalculated",
+    "Forecast variance scan complete",
+    "Mock market feed refreshed",
+    "Sensitivity analysis updated"
+  ],
   "home_eyebrow": "WORKINGNOW · WORKSPACE",
   "home_title": "Choose your workspace",
   "home_description": "A familiar workspace for the work in front of you.",

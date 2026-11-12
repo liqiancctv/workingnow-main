@@ -7,11 +7,11 @@
   "nav_outlook": "Email",
   "nav_title": "Switch workspace",
   "language_select": "Select language",
-  "demo_start": "Start demo playback",
-  "demo_pause": "Pause demo playback",
+  "demo_start": "Start Auto-Play",
+  "demo_pause": "Pause Auto-Play",
   "demo_active": "Active",
   "demo_idle": "Paused",
-  "demo_badge": "SIMULATED DATA",
+  "demo_badge": "Analyze DATA",
   "demo_conversation": "Architecture discussion preview",
   "demo_ai_samples": [
     "Architecture note: isolate read-heavy traffic behind a versioned cache key; invalidate by domain event rather than time alone.",
@@ -27,7 +27,7 @@
   "demo_excel_samples": [
     "Sample scenario recalculated",
     "Forecast variance scan complete",
-    "Mock market feed refreshed",
+    "Market data feed refreshed",
     "Sensitivity analysis updated"
   ],
   "home_eyebrow": "WORKINGNOW · WORKSPACE",

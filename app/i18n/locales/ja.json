@@ -7,11 +7,11 @@
   "nav_outlook": "メール",
   "nav_title": "ワークスペースを切り替え",
   "language_select": "言語を選択",
-  "demo_start": "デモ再生を開始",
-  "demo_pause": "デモ再生を一時停止",
+  "demo_start": "自動再生を開始",
+  "demo_pause": "自動再生を一時停止",
   "demo_active": "再生中",
   "demo_idle": "一時停止中",
-  "demo_badge": "シミュレーションデータ",
+  "demo_badge": "データ分析",
   "demo_conversation": "アーキテクチャ会話のプレビュー",
   "demo_ai_samples": [
     "アーキテクチャメモ: 読み取り中心のトラフィックをバージョン付きキャッシュキーに分離し、時間だけでなくドメインイベントで無効化します。",
@@ -27,7 +27,7 @@
   "demo_excel_samples": [
     "サンプルシナリオを再計算しました",
     "予測差異のスキャンが完了しました",
-    "模擬マーケットデータを更新しました",
+    "データフィード更新完了",
     "感度分析を更新しました"
   ],
   "home_eyebrow": "WORKINGNOW · WORKSPACE",

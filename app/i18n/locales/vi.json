@@ -7,11 +7,11 @@
   "nav_outlook": "Email",
   "nav_title": "Chuyển không gian làm việc",
   "language_select": "Chọn ngôn ngữ",
-  "demo_start": "Bắt đầu trình diễn",
-  "demo_pause": "Tạm dừng trình diễn",
+  "demo_start": "Bắt đầu tự động phát",
+  "demo_pause": "Tạm dừng tự động phát",
   "demo_active": "Đang chạy",
   "demo_idle": "Đã tạm dừng",
-  "demo_badge": "DỮ LIỆU MÔ PHỎNG",
+  "demo_badge": "Phân tích dữ liệu",
   "demo_conversation": "Bản xem trước thảo luận kiến trúc",
   "demo_ai_samples": [
     "Ghi chú kiến trúc: tách lưu lượng đọc cao bằng khóa bộ nhớ đệm có phiên bản; vô hiệu hóa theo sự kiện miền thay vì chỉ dựa vào thời gian.",
@@ -27,7 +27,7 @@
   "demo_excel_samples": [
     "Đã tính lại kịch bản mẫu",
     "Đã hoàn tất quét chênh lệch dự báo",
-    "Đã làm mới nguồn dữ liệu thị trường mô phỏng",
+    "Đã làm mới nguồn dữ liệu thị trường",
     "Đã cập nhật phân tích độ nhạy"
   ],
   "home_eyebrow": "WORKINGNOW · KHÔNG GIAN LÀM VIỆC",

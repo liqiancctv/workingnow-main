@@ -7,11 +7,11 @@
   "nav_outlook": "E-mel",
   "nav_title": "Tukar ruang kerja",
   "language_select": "Pilih bahasa",
-  "demo_start": "Mulakan demo",
-  "demo_pause": "Jeda demo",
+  "demo_start": "Mula Main Automatik",
+  "demo_pause": "Jeda Main Automatik",
   "demo_active": "Aktif",
   "demo_idle": "Dijeda",
-  "demo_badge": "DATA SIMULASI",
+  "demo_badge": "Analisis Data",
   "demo_conversation": "Pratonton perbincangan seni bina",
   "demo_ai_samples": [
     "Nota seni bina: asingkan trafik bacaan tinggi menggunakan kunci cache berversi; batalkan cache melalui peristiwa domain, bukan masa sahaja.",
@@ -27,7 +27,7 @@
   "demo_excel_samples": [
     "Senario sampel dikira semula",
     "Imbasan varians ramalan selesai",
-    "Suapan pasaran simulasi dikemas kini",
+    "Suapan data pasaran telah dimuat semula",
     "Analisis sensitiviti dikemas kini"
   ],
   "home_eyebrow": "WORKINGNOW · RUANG KERJA",

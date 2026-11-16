@@ -117,6 +117,47 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark [data-theme-root] {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+html.dark [data-theme-root] .bg-white {
+  background-color: #1e293b;
+}
+
+html.dark [data-theme-root] .bg-slate-50 {
+  background-color: #0f172a;
+}
+
+html.dark [data-theme-root] .bg-slate-100 {
+  background-color: #334155;
+}
+
+html.dark [data-theme-root] .text-slate-950,
+html.dark [data-theme-root] .text-slate-900 {
+  color: #f8fafc;
+}
+
+html.dark [data-theme-root] .text-slate-700,
+html.dark [data-theme-root] .text-slate-600 {
+  color: #cbd5e1;
+}
+
+html.dark [data-theme-root] .text-slate-500,
+html.dark [data-theme-root] .text-slate-400 {
+  color: #94a3b8;
+}
+
+html.dark [data-theme-root] .border-slate-200,
+html.dark [data-theme-root] .border-slate-300 {
+  border-color: #475569;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

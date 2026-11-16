@@ -4,6 +4,7 @@ import { ArrowUpRight, Bot, Code2, FileSpreadsheet, Mail, Activity } from 'lucid
 import { getTranslations, type Locale } from '@/lib/translations'
 import { StealthNav } from '@/components/stealth-nav'
 import { VisitorCounter } from '@/components/VisitorCounter'
+import { createLegacyMetadata } from '@/lib/seo/legacy-metadata'
 
 type Props = { params: Promise<{ lng: string }> }
 
@@ -17,7 +18,7 @@ const workspaces = [
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lng } = await params
   const t = getTranslations(lng)
-  return { title: `${t.home_title} | ${t.brand}`, description: t.home_description }
+  return createLegacyMetadata(lng, '', t.home_title, t.home_description)
 }
 
 export default async function WorkspaceHome({ params }: Props) {

@@ -11,7 +11,7 @@ export default function VSCodeSkin() {
     fetch("/gossip.json")
       .then((res) => res.json())
       .then((data) => setNews(data))
-      .catch((err) => {
+      .catch(() => {
         // 如果文件还没生成，提供安全的兜底默认数据
         setNews([
           "🔥 [SYSTEM] Connecting to secure data stream...",
@@ -110,14 +110,14 @@ export default function VSCodeSkin() {
         {/* 代码展示区 */}
         <div className="flex-1 overflow-y-auto p-4 font-mono text-xs leading-relaxed">
           {/* 前面几行假代码固定不变 */}
-          <div className="flex"><span className="w-8 text-right pr-4 text-[#858585]">1</span><p><span className="text-[#c586c0]">import</span> React <span className="text-[#c586c0]">from</span> <span className="text-[#ce9178]">'react'</span>;</p></div>
+          <div className="flex"><span className="w-8 text-right pr-4 text-[#858585]">1</span><p><span className="text-[#c586c0]">import</span> React <span className="text-[#c586c0]">from</span> <span className="text-[#ce9178]">&apos;react&apos;</span>;</p></div>
           <div className="flex"><span className="w-8 text-right pr-4 text-[#858585]">2</span><p><span className="text-[#569cd6]">const</span> <span className="text-[#dcdcaa]">GlobalMonitor</span> = () =&gt; &#123;</p></div>
           
           {/* ➡️ 3. 动态循环渲染从 Python 爬过来的实时大瓜！ */}
           {breakingNews.map((newsLine, index) => (
             <div className="flex bg-yellow-500/5 border-l-2 border-yellow-500/40 hover:bg-yellow-500/10" key={index}>
               <span className="w-8 text-right pr-4 text-[#858585] select-none">{index + 3}</span>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#ce9178]">"{newsLine}"</span>,</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#ce9178]">&quot;{newsLine}&quot;</span>,</p>
             </div>
           ))}
 

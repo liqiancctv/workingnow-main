@@ -1,24 +1,26 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next'
+import { getTools, getToolPath } from '@/data/tools'
+import { productLocales } from '@/app/i18n/settings'
+
+const baseUrl = 'https://workingnow.live'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://workingnow.live'
-  const locales = ['en', 'zh', 'ja', 'ms', 'vi']
-  
-  // 为每种语言的主页生成站点地图条目
-  const entries = locales.map((lang) => ({
-    url: `${baseUrl}/${lang}`,
-    lastModified: new Date(),
-    changeFrequency: 'daily' as const,
-    priority: 1.0, // 权重最高
-  }))
+  const productPages = productLocales.flatMap((locale) => [
+    `/${locale}/home`,
+    `/${locale}/meetings`,
+    `/${locale}/tools`,
+    `/${locale}/break`,
+    `/${locale}/discover`,
+    `/${locale}/about`,
+    `/${locale}/privacy`,
+    `/${locale}/terms`,
+    ...getTools().map((tool) => getToolPath(tool, locale)),
+  ])
+  const legacyHomePages = ['en', 'zh', 'ja', 'ms', 'vi'].map((locale) => `/${locale}`)
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1.0,
-    },
-    ...entries,
-  ]
+  return [...new Set([...productPages, ...legacyHomePages])].map((path) => ({
+    url: new URL(path, baseUrl).toString(),
+    changeFrequency: path.endsWith('/home') ? 'weekly' : 'monthly',
+    priority: path.endsWith('/home') ? 1 : path.split('/').filter(Boolean).length === 2 ? 0.8 : 0.6,
+  }))
 }

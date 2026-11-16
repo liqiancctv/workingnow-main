@@ -1,43 +1,47 @@
-# 🤫 WorkingNow.live — The Ultimate Office Camouflage OS
+# WorkingNow
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fworkingnow-live)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Twitter Follow](https://img.shields.io/twitter/follow/WorkingNowLive?style=social)](https://twitter.com/WorkingNowLive)
+WorkingNow is an everyday workday companion: quick meeting and time-zone utilities, practical office tools, short breaks, and lightweight original Discover content.
 
-> **"What's working now? You are, apparently."**
+## Product areas
 
-**WorkingNow.live** is a next-generation, open-source interface camouflage framework built for modern tech talents, remote workers, and professional slackers. It transforms raw entertainment data streams into high-fidelity, high-priority corporate documentation (Notion, VS Code, Excel, Outlook) in real-time. 
+- **Meetings:** world clock, time-zone converter, meeting planner, countdown, timer, working-days calculator, and date/time calculator.
+- **Tools:** percentage and growth-rate calculators, word counter, text case converter, text comparison, random team generator, and random picker.
+- **Break:** 2048, Sudoku, Minesweeper, and a five-minute break timer.
+- **Discover:** daily trivia, interesting facts, office humor, and a quick quiz.
 
-Keep your mind entertained while keeping your corporate privacy completely safe under the micromanagement radar.
+The product is English-first, works without an account or backend, and keeps tool input in the browser. Favorites, recent tools, preferences, and game records use versioned browser storage. Analytics is only loaded after consent; event payloads are restricted to allowlisted product metadata and never contain user-entered content. Ad placements are disabled by default and are placeholders only.
 
----
+## Getting started
 
-## 📺 Preview / Gallery
+Requirements: Node.js and npm.
 
-| 👨‍💻 Tech Department (VS Code) | 📊 Operations (Notion Canvas) | 📈 Administration (MS Outlook / Excel) |
-| :---: | :---: | :---: |
-| <img src="public/screenshots/vscode-skin.png" width="250" alt="VS Code Skin"/> | <img src="public/screenshots/notion-skin.png" width="250" alt="Notion Skin"/> | <img src="public/screenshots/outlook-skin.png" width="250" alt="Outlook Skin"/> |
-| *Disguise sci-fi novels as clean python source code.* | *Read Reddit drama formatted as Q2 Marketing PRDs.* | *Classic MSOutlookit clone natively integrated.* |
+```bash
+npm install
+npm run dev
+```
 
----
+Open [http://localhost:3000](http://localhost:3000). Validate changes with:
 
-## ✨ Features
+```bash
+npm run lint
+npx tsc --noEmit --incremental false
+npm run build
+node --experimental-strip-types --test features/meetings/calculations.test.mjs features/work-tools/calculations.test.mjs features/break/logic.test.mjs features/discover/content.test.mjs
+```
 
-- **🎭 Interface Camouflage (Skins)**: Toggle dynamically between high-fidelity skins (Notion, VS Code, Jira, MS Outlook) depending on your professional role.
-- **📡 Automated Data Injector**: Built-in Python scripts (powered by GitHub Actions) that pull data from Reddit, Hacker News, and light novels, rendering them natively in monospace code fonts or spreadsheet cells.
-- **🚨 The Panic Switch (Boss Key)**: Press `Space` (or customize your hotkey). The entire DOM elements smoothly fade out within 50ms, replacing itself with a high-density, terrifyingly realistic KPI Dashboard.
-- **🔌 Hardware Ready (Upcoming)**: Fully compatible with upcoming macro-pad hardwares (The Physical Panic Button). No drivers required, completely bypasses corporate endpoint monitoring.
+## Architecture
 
----
+- Next.js 16 App Router, React 19, TypeScript, and Tailwind CSS.
+- `app/` contains routes, layouts, metadata, `robots.txt`, and sitemap generation.
+- `components/product/` contains shared navigation, page layouts, search, favorites, consent, and reusable product UI.
+- `data/` contains tool metadata; `features/` contains isolated tool, game, and Discover logic.
+- `lib/storage/` contains the SSR-safe, versioned browser-storage layer; `lib/analytics/` contains consent-aware event handling.
+- `docs/PROJECT_AUDIT.md`, `docs/REFACTORING_PLAN.md`, and `docs/SEO_CHECKLIST.md` document the audit, delivery scope, and launch checks.
 
-## 🛠️ Tech Stack & Architecture
+## Existing URL compatibility
 
-This project is engineered to run on **Zero Server Infrastructure Cost**:
+The legacy localized workspace routes (`/{lng}`, `/{lng}/ai-workspace`, `/{lng}/excel`, `/{lng}/outlook`, and `/{lng}/vscode`), `/vscode`, and `/MSOutlookit/index.html` remain available. They have not been redirected to unrelated product pages. New product routes use the `/meetings`, `/tools`, `/break`, and `/discover` sections.
 
-- **Frontend**: Next.js 14+, TypeScript, Tailwind CSS, Radix UI (Shadcn/ui).
-- **Deployment**: Vercel (Edge Network).
-- **Database/CMS**: Airtable API.
-- **Automation Pipeline**: Python + GitHub Actions (Scheduled crons for content extraction).
+## Deployment and external setup
 
-```text
-[Web Scraping Script] -> [GitHub Actions] -> [Airtable DB] -> [Next.js (Vercel)] -> Camouflaged UI
+The project is configured for a Vercel-style Next.js deployment. Before launch, configure the production domain and verify deployment, Search Console ownership/indexing, and production Core Web Vitals. Add an accurate privacy contact channel before publishing the policy. GA4 and a live ad network are not configured; neither is required for local development.

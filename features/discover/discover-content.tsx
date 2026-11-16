@@ -172,7 +172,7 @@ function Collection({ kind }: { kind: 'facts' | 'humor' }) {
             <p className="text-sm font-medium text-indigo-700">{t(item.category)}</p>
             <p className="mt-2 text-lg leading-7 text-slate-900">{t(item.text)}</p>
             <SourceNote item={item} />
-            <ShareLink fragment={item.id} contentId={item.id} label={`${kind === 'facts' ? 'fact' : 'office humor'}: ${item.text}`} />
+            <ShareLink fragment={item.id} contentId={item.id} label={`${t(kind === 'facts' ? 'fact' : 'office humor')}: ${t(item.text)}`} />
           </article>
         ))}
       </div>

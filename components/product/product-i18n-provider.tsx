@@ -1,5 +1,7 @@
 'use client'
 
+'use client'
+
 import { createContext, useContext, useMemo, type ReactNode } from 'react'
 import type { ProductLocale } from '@/app/i18n/settings'
 import { getProductText, type MessageKey } from '@/lib/product-i18n'

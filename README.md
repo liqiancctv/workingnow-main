@@ -9,7 +9,7 @@ WorkingNow is an everyday workday companion: quick meeting and time-zone utiliti
 - **Break:** 2048, Sudoku, Minesweeper, and a five-minute break timer.
 - **Discover:** daily trivia, interesting facts, office humor, and a quick quiz.
 
-The product is English-first, works without an account or backend, and keeps tool input in the browser. Favorites, recent tools, preferences, and game records use versioned browser storage. Analytics is only loaded after consent; event payloads are restricted to allowlisted product metadata and never contain user-entered content. Ad placements are disabled by default and are placeholders only.
+The product supports English, Simplified Chinese, Traditional Chinese, and Japanese. The root entry point chooses a supported language from the browser's `Accept-Language` preference; users can switch languages from the header at any time. It works without an account or backend and keeps tool input in the browser. Favorites, recent tools, preferences, and game records use versioned browser storage. Analytics is only loaded after consent; event payloads are restricted to allowlisted product metadata and never contain user-entered content. Ad placements are disabled by default and are placeholders only.
 
 ## Getting started
 

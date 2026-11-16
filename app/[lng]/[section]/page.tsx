@@ -6,7 +6,7 @@ import { ToolListing } from '@/components/product/tool-listing'
 import { PageHeading } from '@/components/product/page-heading'
 import { AnalyticsPreferences } from '@/components/product/analytics-preferences'
 import { getProductText } from '@/lib/product-i18n'
-import { createCategoryMetadata } from '@/lib/seo/metadata'
+import { createCategoryMetadata, getLocalizedAlternates, getOpenGraphLocale } from '@/lib/seo/metadata'
 import { isProductLocale } from '@/app/i18n/settings'
 import type { ProductLocale } from '@/app/i18n/settings'
 import type { ToolCategory } from '@/data/tools'
@@ -30,11 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (legalPages.includes(section as LegalPage)) {
     const key = `${section}.title` as Parameters<typeof getProductText>[1]
     const descriptionKey = `${section}.description` as Parameters<typeof getProductText>[1]
+    const title = getProductText(locale, key)
+    const description = getProductText(locale, descriptionKey)
     return {
-      title: getProductText(locale, key),
-      description: getProductText(locale, descriptionKey),
-      alternates: { canonical: `/${locale}/${section}` },
-      openGraph: { title: getProductText(locale, key), description: getProductText(locale, descriptionKey), type: 'website' },
+      title,
+      description,
+      alternates: getLocalizedAlternates(locale, `/${section}`),
+      openGraph: { title, description, type: 'website', locale: getOpenGraphLocale(locale) },
     }
   }
   return { title: getProductText(locale, '404.title') }

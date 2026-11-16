@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Clock3, Compass, Gamepad2, Search, Wrench } from 'lucide-react'

@@ -7,7 +7,8 @@ import { AdSlot } from './ad-slot'
 import { ToolCard } from './tool-card'
 import { getTools, type ToolCategory } from '@/data/tools'
 import { getProductText } from '@/lib/product-i18n'
-import { productLocales, type ProductLocale } from '@/app/i18n/settings'
+import type { ProductLocale } from '@/app/i18n/settings'
+import { getLocalizedAlternates, getOpenGraphLocale } from '@/lib/seo/metadata'
 
 const categories: { id: ToolCategory; titleKey: 'category.meetings' | 'category.tools' | 'category.break' | 'category.discover'; descriptionKey: 'home.meetingsDescription' | 'home.toolsDescription' | 'home.breakDescription' | 'home.discoverDescription'; href: string; icon: typeof Clock3 }[] = [
   { id: 'meetings', titleKey: 'category.meetings', descriptionKey: 'home.meetingsDescription', href: '/meetings', icon: Clock3 },
@@ -22,14 +23,8 @@ export function createHomeMetadata(locale: ProductLocale): Metadata {
   return {
     title,
     description,
-    alternates: {
-      canonical: `/${locale}/home`,
-      languages: Object.fromEntries(productLocales.map((supportedLocale) => [
-        supportedLocale,
-        `https://workingnow.live/${supportedLocale}/home`,
-      ])),
-    },
-    openGraph: { title: `WorkingNow — ${title}`, description, type: 'website', locale: locale === 'zh-CN' ? 'zh_CN' : locale === 'zh-TW' ? 'zh_TW' : locale === 'ja' ? 'ja_JP' : 'en_US' },
+    alternates: getLocalizedAlternates(locale, '/home'),
+    openGraph: { title: `WorkingNow — ${title}`, description, type: 'website', locale: getOpenGraphLocale(locale) },
   }
 }
 

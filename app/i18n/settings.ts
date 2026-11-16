@@ -19,12 +19,12 @@ export function detectProductLocale(acceptLanguage: string | null): ProductLocal
       const weight = quality ? Number(quality.trim().slice(2)) : 1
       return { tag: tag.toLowerCase(), weight, index }
     })
-    .filter((entry) => entry.tag && Number.isFinite(entry.weight) && entry.weight > 0)
+    .filter((entry) => entry.tag && Number.isFinite(entry.weight) && entry.weight > 0 && entry.weight <= 1)
     .sort((left, right) => right.weight - left.weight || left.index - right.index)
 
   for (const { tag } of preferences) {
     if (tag === '*') continue
-    if (tag === 'zh-tw' || tag === 'zh-hk' || tag === 'zh-mo' || tag.includes('hant')) return 'zh-TW'
+    if (/^zh-(tw|hk|mo)(-|$)/.test(tag) || tag.includes('hant')) return 'zh-TW'
     if (tag === 'zh' || tag.startsWith('zh-')) return 'zh-CN'
     if (tag === 'ja' || tag.startsWith('ja-')) return 'ja'
     if (tag === 'en' || tag.startsWith('en-')) return 'en'
